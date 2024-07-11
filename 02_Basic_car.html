@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Car Design in HTML5 Canvas</title>
+    <style>
+      /* Add some basic styling to our canvas */
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="car-canvas" width="400" height="200"></canvas>
+    <script>
+      // Get the canvas element
+      const canvas = document.getElementById('car-canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Set the canvas dimensions
+      canvas.width = 400;
+      canvas.height = 200;
+
+      // Draw the car body
+      ctx.fillStyle = 'blue';
+      ctx.fillRect(50, 50, 150, 50); // main body
+      ctx.fillRect(70, 30, 30, 20); // front bumper
+      ctx.fillRect(170, 30, 30, 20); // rear bumper
+
+      // Draw the wheels
+      ctx.fillStyle = 'black';
+      ctx.beginPath();
+      ctx.arc(80, 70, 15, 0, 2 * Math.PI); // front left wheel
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(180, 70, 15, 0, 2 * Math.PI); // front right wheel
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(80, 120, 15, 0, 2 * Math.PI); // rear left wheel
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(180, 120, 15, 0, 2 * Math.PI); // rear right wheel
+      ctx.fill();
+
+      // Draw the windows
+      ctx.fillStyle = 'gray';
+      ctx.fillRect(70, 40, 30, 20); // front window
+      ctx.fillRect(170, 40, 30, 20); // rear window
+
+      // Draw the headlights
+      ctx.fillStyle = 'yellow';
+      ctx.beginPath();
+      ctx.arc(60, 40, 5, 0, 2 * Math.PI); // left headlight
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(190, 40, 5, 0, 2 * Math.PI); // right headlight
+      ctx.fill();
+    </script>
+  </body>
+</html>
