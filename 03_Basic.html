@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Particle System</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden; /* Hide scrollbars */
+        background-color: #000;
+    }
+    canvas {
+        display: block;
+        margin: auto;
+        background-color: #111;
+        cursor: crosshair;
+    }
+</style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var particleCount = 100;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function Particle(x, y, radius, color) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.color = color;
+            this.velocity = {
+                x: (Math.random() - 0.5) * 5,
+                y: (Math.random() - 0.5) * 5
+            };
+
+            this.update = function() {
+                this.draw();
+
+                // Apply physics
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                // Apply friction
+                this.velocity.x *= 0.99;
+                this.velocity.y *= 0.99;
+
+                // Apply gravity
+                this.velocity.y += 0.1;
+
+                // Collision with walls
+                if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                    this.velocity.x = -this.velocity.x;
+                }
+                if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                    this.velocity.y = -this.velocity.y;
+                }
+            };
+
+            this.draw = function() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            };
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                var radius = Math.random() * 20 + 5;
+                var x = Math.random() * (canvas.width - radius * 2) + radius;
+                var y = Math.random() * (canvas.height - radius * 2) + radius;
+                var color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.8)`;
+                particles.push(new Particle(x, y, radius, color));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+            });
+        }
+
+        init();
+        animate();
+
+        // Event listener for mouse move
+        canvas.addEventListener('mousemove', function(event) {
+            particles.forEach(particle => {
+                var dx = particle.x - event.clientX;
+                var dy = particle.y - event.clientY;
+                var distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 100) {
+                    var angle = Math.atan2(dy, dx);
+                    particle.velocity.x = Math.cos(angle) * 5;
+                    particle.velocity.y = Math.sin(angle) * 5;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

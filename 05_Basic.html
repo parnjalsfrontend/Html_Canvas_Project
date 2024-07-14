@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas{
+            background-color: lightgrey;
+        }
+    </style>
+</head>
+<body>
+   <canvas id="canvas" width="500" height="250"></canvas> 
+   <script>
+        
+         let canvas = document.getElementById("canvas");
+         let context = canvas.getContext("2d")
+
+         context.beginpath();  // Start Of the Path
+         context.moveTo(0,0);  // Intial State Of the Line
+
+         context.lineTo(250,150);  // How Far Line Go through
+         context.stroke();         // Print the Line
+
+
+
+   </script>
+</body>
+</html>
