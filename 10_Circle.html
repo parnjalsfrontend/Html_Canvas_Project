@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            background-color: aqua;
+            height: 100vh;
+            margin: 0;
+        }
+
+        canvas {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="mycanvas" width="500" height="250"></canvas>
+    <script>
+        let canvas = document.getElementById("mycanvas");
+        let ctx = canvas.getContext("2d");
+        let centerX = 250;
+        let centerY = 130;
+        let radius = 50;
+
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = "green";
+        ctx.fill();
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+    </script>
+</body>
+
+</html>

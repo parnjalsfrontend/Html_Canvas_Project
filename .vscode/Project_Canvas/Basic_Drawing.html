@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            background-color: aqua;
+        }
+        canvas{
+            border: 1px solid black;
+            cursor: pointer;
+            background-color: lightgrey;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Drawing</h1>
+    <div>
+        <label for="colorPicker">Choose Color :</label>
+        <input type="color" id="colorPicker">
+        <label for="brushSize">Brush Size:</label>
+        <input type="range" id="brushSize" min="1" max="20" value="5">
+    </div>
+    <canvas id="mycanvas" width="800" height="600"></canvas>
+    <script>
+        window.onload = function(){
+            let canvas = document.getElementById('mycanvas');
+            let ctx = canvas.getContext('2d');
+            let colorPicker = document.getElementById('colorPicker');
+            let brushSize = document.getElementById('brushSize');
+            let drawing = false;
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            function startDrawing(e){
+                drawing = true;
+                draw(e);
+            }
+
+            function draw(e){
+                if (!drawing) return;
+                
+                ctx.lineWidth = brushSize.value;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = colorPicker.value;
+
+                ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            }
+
+            function stopDrawing(){
+                drawing = false;
+                ctx.beginPath(); // Reset Drawing Path
+            }
+
+         function clearCanvas(){
+            ctx.clearReact(0, 0, canvas.width, canvas.height);
+         }
+        }
+    </script>
+</body>
+</html>

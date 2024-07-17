@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+         background-color: aqua;
+         justify-content: center;
+         display: flex;
+         margin: 0;
+         height: 100vh;
+         align-items: center;
+    }
+    canvas{
+            background-color: lightgrey;
+    }
+</style>
+<body>
+    <canvas id="mycanvas" width="500" height="250"></canvas>
+    <script>
+        let canvas = document.getElementById("mycanvas");
+        let ctx = canvas.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.lineTo(500,250);
+        ctx.stroke();
+        
+    </script>
+</body>
+</html>
